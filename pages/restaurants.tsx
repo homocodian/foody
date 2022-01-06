@@ -52,9 +52,8 @@ export default Restaurants;
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const data = await fetch(
-      `https://api.unsplash.com/search/photos?query=restaurant&per_page=20&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}+123`
+      `https://api.unsplash.com/search/photos?query=restaurant&per_page=20&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`
     ).then((res) => res.json());
-    console.log(data);
     if (!data || data.errors) {
       return {
         props: {
