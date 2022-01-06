@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  html{
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-inter;
+  }
+  .dot::after {
+    content: "";
+    position: absolute;
+    padding: 4px;
+    top: 100%;
+    bottom: 0;
+    right: 50%;
+    @apply bg-primary rounded-full;
+  }
+  .poster::after {
+    z-index: 999;
+    position: absolute;
+    bottom: -24%;
+    right: -50%;
+  }
+  .custom-shape-divider-top-1640097802 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+  }
+
+  .custom-shape-divider-top-1640097802 svg {
+    position: relative;
+    display: block;
+    width: calc(113% + 1.3px);
+    height: 246px;
+  }
+
+  .custom-shape-divider-top-1640097802 .shape-fill {
+    fill: #8b5cf6;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .poster {
+    width: 16rem;
+    height: 16rem;
+  }
+  .poster::after {
+    bottom: -50%;
+    right: -72%;
+  }
+}
+
+@media screen and (max-width: 290px) {
+  .poster {
+    width: 14rem;
+    height: 14em;
+  }
+  .poster::after {
+    bottom: -80%;
+    right: -90%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .features {
+    flex-direction: row;
+    align-items: baseline;
+  }
+}
