@@ -18,7 +18,7 @@ function Menu({ ok, message, body }: IProps) {
     <Layout
       title="Menu"
       attachNavbar
-      attachFooter={isSearchActive ? false : true}
+      attachFooter={isSearchActive || !ok ? false : true}
     >
       <main className="mt-4">
         {/* container */}
@@ -60,7 +60,7 @@ function Menu({ ok, message, body }: IProps) {
               )
             ) : (
               <p className="text-center text-primary text-2xl">
-                {message || "No data found"}
+                {message || "No data found please try later."}
               </p>
             )}
           </div>
@@ -77,22 +77,33 @@ export const getServerSideProps: GetServerSideProps = async (
   context
 ): Promise<GetServerSidePropsResult<Data>> => {
   const category = context.query.category;
-  const data: Data = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}?category=${category || "indian"}`
-  ).then((res) => res.json());
-  if (!data) {
+  try {
+    const data: Data = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_VERCEL_URL
+      }/api?category=${category || "indian"}`
+    ).then((res) => res.json());
+    if (!data || !data.ok) {
+      return {
+        props: {
+          ok: false,
+          message: "No data found 😔",
+        },
+      };
+    }
+    return {
+      props: {
+        ok: true,
+        body: data.body,
+        message: null,
+      },
+    };
+  } catch (error) {
     return {
       props: {
         ok: false,
-        message: "No data found.",
+        message: "No data found 😔",
       },
     };
   }
-  return {
-    props: {
-      ok: true,
-      body: data.body,
-      message: null,
-    },
-  };
 };

@@ -10,7 +10,11 @@ interface IProps {
 
 function Restaurants({ data }: IProps) {
   return (
-    <Layout title="Restaurants" attachNavbar attachFooter>
+    <Layout
+      title="Restaurants"
+      attachNavbar
+      attachFooter={!data ? false : true}
+    >
       <main className="m-6">
         <header className="mb-4">
           <h1 className="text-lg font-bold">Our Partnered Restaurants</h1>
@@ -20,9 +24,11 @@ function Restaurants({ data }: IProps) {
         </header>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
           {!data ? (
-            <p className="text-center">No data try later</p>
+            <p className="text-center text-2xl font-bold text-primary">
+              No data to show try later 😔
+            </p>
           ) : (
-            data.results.map((result,index) => {
+            data.results.map((result, index) => {
               if (!result.urls) return;
               return (
                 <RestaurantCard
@@ -44,12 +50,28 @@ function Restaurants({ data }: IProps) {
 export default Restaurants;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await fetch(
-    `https://api.unsplash.com/search/photos?query=restaurant&per_page=20&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}`
-  ).then((res) => res.json());
-  return {
-    props: {
-      data,
-    },
-  };
+  try {
+    const data = await fetch(
+      `https://api.unsplash.com/search/photos?query=restaurant&per_page=20&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_API_KEY}+123`
+    ).then((res) => res.json());
+    console.log(data);
+    if (!data || data.errors) {
+      return {
+        props: {
+          data: null,
+        },
+      };
+    }
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+      },
+    };
+  }
 };
