@@ -47,7 +47,7 @@ function SearchItems({ data }: IProps) {
         </div>
       ) : (
         <p className="text-center text-2xl font-semibold text-primary-dark">
-          No data found, try searching something different or choose somthing from above options 😔
+          No data found, try searching something different or choose something from above options 😔
         </p>
       )}
     </div>
