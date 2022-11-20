@@ -13,12 +13,11 @@ function RestaurantCard({ src, reviewStar, reviews, likes }: IProps) {
 	return (
 		<div className="relative ring-1 ring-primary rounded hover:shadow-lg">
 			<Image
-				priority
-				width={1290}
-				height={1080}
-				objectFit="cover"
+				width={500}
+				height={300}
 				src={src}
 				alt="Restaurant Image"
+				className="object-cover h-60"
 			/>
 			<div className="m-2 flex flex-col">
 				<p className="inline-flex items-center gap-1 text-sm">
