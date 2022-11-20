@@ -1,8 +1,9 @@
-import Layout from "@/components/Layout";
-import RestaurantCard from "@/components/RestaurantCard";
-import { Data } from "@/types/Result";
 import { GetStaticProps } from "next";
+
+import { Data } from "@/types/Result";
+import Layout from "@/components/Layout";
 import { reviews } from "@/utilities/reviews";
+import RestaurantCard from "@/components/RestaurantCard";
 
 interface IProps {
   data: Data;
